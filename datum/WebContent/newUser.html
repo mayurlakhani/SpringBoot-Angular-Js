@@ -1,0 +1,56 @@
+<div ng-app="App" ng-controller="manageUserCtrl" ng-init="init();">	
+	<form name="myForm" enctype="multipart/form-data" novalidate>
+		<table>
+			  <tr>
+				 <td>
+				 	<label for="Email">Email :</label>
+					<input type="email" id="email" name="email" ng-model="user.email"/>
+				 </td>
+			  </tr>
+			  <tr>	
+			      <td>		
+                	 <input type="radio" value="MALE" ng-model="user.gender"/> Male
+                     <input type="radio" value="FEMALE" ng-model="user.gender"/> Female
+                  </td>
+                  <td>
+                  		Selected :{{user.gender}}
+                  </td>
+			  </tr>	
+		       <tr>
+			      <td>
+					 <label for="Validate">Validate
+					 <input type="checkbox" id="c.v" ng-true-value="'true'"
+             			 ng-false-value="'false'" name="c.v" ng-model="user.validate"/></label>
+				  </td>
+				   <td>
+				  		Value:{{user.validate}}
+				  </td>
+			  </tr>	
+			  <tr>
+			  	  <td>
+				  	  <input type="file" file-model="uploadfile"/>
+    				  <button ng-click="uploadFile()">upload me</button>		
+				  </td>
+				  
+			  </tr>  	 
+			  <tr>  
+				 <td>
+					<label for="role">Select Role :</label>
+					<select ng-model="user.role" id="name" ng-options="r.name for r in roles track by r.id">
+				 </td>
+			  </tr>
+			 	    <input type="hidden" ng-model="user.id" />
+			   <tr>
+			       <td>
+			       		 
+					   <button type="submit" ng-click="saveUser(user)"><a ui-sref="home" ui-sref-active="active">SAVE USER</a></button><br>
+				   		 
+				   </td>
+				  
+			       <td>
+				   	  <button type="submit" ng-click="fetchAllusers()"><a ui-sref="home" ui-sref-active="active">Back</a></button>
+			       </td>
+			   </tr>	
+		</table>
+	</form>
+</div>	

@@ -1,0 +1,118 @@
+<body>
+  <script type="text/ng-template" id="page.html">
+	<style type="text/css" src="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css"></style>
+    <div class="pagination text-center" ng-show="paginator.pageCount() > 1">
+    <ul>
+        <li ng-click="paginator.firstPage()" ng-class="paginator.isFirstPage() && 'disabled'">
+            <a>
+                <i class="icon-fast-backward" ng-class="paginator.isFirstPage() && 'icon-white'"></i>
+            </a>
+        </li>
+        <li ng-click="paginator.perviousPage()" ng-class="paginator.isFirstPage() && 'disabled'">
+            <a>
+                <i class="icon-step-backward" ng-class="paginator.isFirstPage() && 'icon-white'"></i>
+            </a>
+        </li>
+        <li ng-click="paginator.setPage(i)" ng-repeat="i in [] | forLoop:paginator.lowerLimit():paginator.pageCount() | limitTo : paginator.limitPerPage" ng-class="paginator.page==i && 'active'"> 
+            <a> 
+                <i>{{i+1}}</i> 
+            </a> 
+        </li>
+        <li ng-click="paginator.nextPage()" ng-class="paginator.isLastPage() && 'disabled'">
+            <a>
+                <i class="icon-step-forward" ng-class="paginator.isLastPage() && 'icon-white'"></i>
+            </a>
+        </li>
+        <li ng-click="paginator.lastPage()" ng-class="paginator.isLastPage() && 'disabled'">
+            <a>
+                <i class="icon-fast-forward" ng-class="paginator.isLastPage() && 'icon-white'"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+  </script>
+  <div class="container" ng-app="App" ng-controller="homeCtrl" ng-init="init()">
+
+<h3>all records:<h3>
+      <table class="table table-bordered table-striped">
+       		<tr>
+		     	<td>
+                   	<input type="text" class="search" ng-model="keyword" ng-keyup="search();" placeholder="Enter your search terms"  autofocus/>
+                </td>
+                <td>
+              	    <p ng-show="message">{{message}}</p>
+              	</td>		
+              </tr> 
+      </table>
+    	<table class="table table-bordered table-striped">
+			 
+              <div>
+		    		<a ui-sref="add" ui-sref-active="active">Add User</a>
+			  </div> 
+		<thead>
+          	  <tr>
+          	  	  <td>
+						<a href="#" ng-click="sortType = 'user.email'; sortReverse = !sortReverse">Email
+							<span ng-show="sortType == 'user.email'" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'user.email'" class="fa fa-caret-up"></span>
+						</a>
+           		  </td>
+           		  <td>
+						<a href="#" ng-click="sortType = 'user.role.name'">Role
+							<span ng-show="sortType == 'user.role.name'" class="fa fa-caret-down"></span>
+							<span ng-show="sortType == 'user.role.name'" class="fa fa-caret-up"></span>
+				  		</a>
+				  </td>
+				  <td>
+				  		<a href="#" ng-click="sortType = 'user.gender'">Gender
+				  			<span ng-show="sortType == 'user.gender'" class="fa fa-caret-down"></span>
+				  			<span ng-show="sortType == 'user.gender'" class="fa fa-caret-up"></span>
+						</a>
+				  </td>
+				  <td>
+						 <a href="#" ng-click="sortType = 'user.validate'">Validate
+						 	<span ng-show="sortType == 'user.validate'" class="fa fa-caret-down"></span>
+						 	<span ng-show="sortType == 'user.validate'" class="fa fa-caret-up"></span>
+							</a>
+				  </td>
+				   <td>Edit</td>
+				   <td>Delete</td>
+			 </tr>
+	 </thead>
+	 <tbody>
+	  		 
+              <tr ng-repeat="user in users ">
+                 	<td>{{user.email}}</td>
+					<td>{{user.role.name}}</td>
+					<td>{{user.gender}}</td>
+					<td>{{user.validate}}</td>
+					<td><button ng-click="getUser(user.id)"><a ui-sref="edit" ui-sref-active="active">Edit</a></button></td>
+					<td><button ng-click="deleteUser(user.id)"><a ui-sref="home" ui-sref-active="active">Delete</a> &times;</button></td>
+              </tr>
+     </tbody>          
+      </table>
+         <table>
+              <tr>
+                  <td>
+                      <div class="control-group">
+                      	  <br/>
+                          <label class="control-label" for="rows-per-page">Rows per page</label>
+                          <div class="controls">
+                            <select id="rows-per-page" ng-model="rowsPerPage" class="input-xlarge">
+                              <option>3</option>
+                              <option>6</option>
+                              <option>9</option>
+                              <option>12</option>
+                            </select>
+                          </div>
+                      </div>
+                  </td>
+              </tr>
+              <tr>
+                  <td>
+                      <paginator></paginator>
+                  </td>
+              </tr>
+      </table>
+  </div>
+</body>
